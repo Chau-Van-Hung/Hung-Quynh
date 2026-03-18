@@ -91,6 +91,20 @@ body::before{
   padding:10px;
   border-radius:10px;
 }
+
+/* HIỆU ỨNG RƠI */
+.effect{
+  position:fixed;
+  top:-10px;
+  pointer-events:none;
+  animation:fall linear forwards;
+}
+
+@keyframes fall{
+  to{
+    transform:translateY(110vh) rotate(360deg);
+  }
+}
 </style>
 </head>
 
@@ -130,6 +144,21 @@ setInterval(()=>{
   document.getElementById("m").innerHTML = Math.floor((diff%(1000*60*60))/(1000*60));
   document.getElementById("s").innerHTML = Math.floor((diff%(1000*60))/1000);
 },1000);
+
+/* HOA + TIM RƠI (KHÔI PHỤC) */
+function create(symbol){
+  const el = document.createElement("div");
+  el.classList.add("effect");
+  el.innerHTML = symbol;
+  el.style.left = Math.random()*100 + "vw";
+  el.style.fontSize = (14+Math.random()*20)+"px";
+  el.style.animationDuration = (6+Math.random()*4)+"s";
+  document.body.appendChild(el);
+  setTimeout(()=>el.remove(),10000);
+}
+
+setInterval(()=>create("🌸"),800);
+setInterval(()=>create("❤️"),1200);
 
 /* OPEN */
 function openInvitation(){
