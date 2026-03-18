@@ -14,7 +14,7 @@ body{
   font-family:'Poppins', sans-serif;
   background:url("anhcuoi.jpg") no-repeat center center fixed;
   background-size:cover;
-  overflow:hidden;
+  overflow-x:hidden;
 }
 
 body::before{
@@ -42,7 +42,6 @@ body::before{
   overflow:hidden;
 }
 
-/* BUTTON */
 .open-btn{
   padding:14px 35px;
   border:none;
@@ -50,16 +49,6 @@ body::before{
   background:white;
   color:#ff3385;
   cursor:pointer;
-}
-
-/* FIREWORK PARTICLE */
-.firework{
-  position:absolute;
-  border-radius:50%;
-  pointer-events:none;
-  z-index:10000;
-  box-shadow:0 0 10px currentColor, 0 0 20px currentColor;
-  opacity:1;
 }
 
 /* HERO */
@@ -89,6 +78,7 @@ body::before{
   to{ text-shadow:0 0 25px #ff3385;}
 }
 
+/* COUNTDOWN */
 .countdown{
   display:grid;
   grid-template-columns:repeat(4,1fr);
@@ -100,6 +90,24 @@ body::before{
   background:white;
   padding:10px;
   border-radius:10px;
+}
+
+/* HIỆU ỨNG BAY */
+.effect{
+  position:fixed;
+  pointer-events:none;
+  animation: float linear forwards;
+}
+
+@keyframes float{
+  0%{
+    transform:translateY(0) translateX(0) rotate(0deg);
+    opacity:1;
+  }
+  100%{
+    transform:translateY(-120vh) translateX(100px) rotate(360deg);
+    opacity:0;
+  }
 }
 </style>
 </head>
@@ -141,55 +149,31 @@ setInterval(()=>{
   document.getElementById("s").innerHTML = Math.floor((diff%(1000*60))/1000);
 },1000);
 
-/* FIREWORK XỊN */
-let fireworkInterval;
+/* HIỆU ỨNG HOA + TIM + BONG BÓNG */
+function createEffect(){
+  const el = document.createElement("div");
+  el.classList.add("effect");
 
-function createFirework(){
-  const container = document.getElementById("cover");
+  const items = ["🌸","🌺","💖","❤️","🎈"];
+  el.innerHTML = items[Math.floor(Math.random()*items.length)];
 
-  const x = Math.random() * window.innerWidth;
-  const y = Math.random() * window.innerHeight * 0.6;
+  el.style.left = Math.random()*100 + "vw";
+  el.style.bottom = "-20px";
 
-  const colors = ["#ff66a3","#ff3385","#ff99cc","#ffffff","#ffd1e8"];
+  el.style.fontSize = (16 + Math.random()*20) + "px";
 
-  for(let i=0;i<50;i++){ // càng lớn càng đẹp
-    const p = document.createElement("div");
-    p.classList.add("firework");
+  el.style.animationDuration = (6 + Math.random()*5) + "s";
 
-    const size = 3 + Math.random()*4;
-    p.style.width = size + "px";
-    p.style.height = size + "px";
+  document.body.appendChild(el);
 
-    p.style.background = colors[Math.floor(Math.random()*colors.length)];
-
-    p.style.left = x + "px";
-    p.style.top = y + "px";
-
-    const angle = Math.random() * 2 * Math.PI;
-    const distance = Math.random() * 150 + 50;
-
-    const dx = Math.cos(angle) * distance;
-    const dy = Math.sin(angle) * distance;
-
-    p.style.transition = "transform 1.2s ease-out, opacity 1.2s";
-
-    container.appendChild(p);
-
-    setTimeout(()=>{
-      p.style.transform = `translate(${dx}px, ${dy}px)`;
-      p.style.opacity = 0;
-    },10);
-
-    setTimeout(()=>p.remove(),1200);
-  }
+  setTimeout(()=>el.remove(),10000);
 }
 
-fireworkInterval = setInterval(createFirework, 900);
+setInterval(createEffect, 300);
 
 /* OPEN */
 function openInvitation(){
   document.getElementById("cover").style.display="none";
-  clearInterval(fireworkInterval);
 }
 </script>
 
