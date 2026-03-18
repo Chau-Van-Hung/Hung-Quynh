@@ -8,11 +8,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;400;500&family=Great+Vibes&display=swap" rel="stylesheet">
 
 <style>
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-}
+*{margin:0;padding:0;box-sizing:border-box;}
 
 body{
   font-family:'Poppins', sans-serif;
@@ -20,24 +16,21 @@ body{
   background-size:cover;
   color:#b30059;
   overflow-x:hidden;
-  position:relative;
 }
+
 body::before{
   content:"";
   position:fixed;
-  top:0;
-  left:0;
   width:100%;
   height:100%;
-  background:rgba(255,255,255,0.6); /* chỉnh độ mờ ở đây */
-  backdrop-filter:blur(5px); /* làm mờ ảnh */
+  background:rgba(255,255,255,0.6);
+  backdrop-filter:blur(5px);
   z-index:-1;
 }
-/* Màn hình mở thiệp */
+
+/* COVER */
 .cover{
   position:fixed;
-  top:0;
-  left:0;
   width:100%;
   height:100vh;
   background:linear-gradient(135deg,#ffb3d9,#ff66a3);
@@ -48,16 +41,27 @@ body::before{
   z-index:9999;
   color:white;
   text-align:center;
+  overflow:hidden;
 }
-  /* pháo hoa */
-  ..firework{
-  position:fixed;
-  width:4px;
-  height:4px;
+
+.open-btn{
+  padding:14px 35px;
+  border:none;
+  border-radius:30px;
+  background:white;
+  color:#ff3385;
+  cursor:pointer;
+}
+
+/* FIREWORK */
+.firework{
+  position:absolute;
   border-radius:50%;
   pointer-events:none;
-  z-index:10000; /* QUAN TRỌNG */
+  z-index:10000;
+  animation: explode 1s ease-out forwards;
 }
+
 @keyframes explode{
   from{
     transform:scale(1);
@@ -69,192 +73,69 @@ body::before{
   }
 }
 
-.cover h2{
-  font-family:'Playfair Display', serif;
-  font-size:32px;
-  margin-bottom:20px;
-}
-
-.open-btn{
-  padding:14px 35px;
-  border:none;
-  border-radius:30px;
-  font-size:16px;
-  background:white;
-  color:#ff3385;
-  cursor:pointer;
-  font-weight:500;
-  transition:0.3s;
-}
-
-.open-btn:hover{
-  transform:scale(1.05);
-}
-
-.hide{
-  display:none;
-}
 /* HERO */
 .hero{
   height:100vh;
   display:flex;
   justify-content:center;
   align-items:center;
-  text-align:center;
-  position:relative;
-  padding:20px;
 }
 
 .content{
-  width:100%;
   max-width:500px;
   background:rgba(255,255,255,0.6);
   backdrop-filter:blur(10px);
-  padding:40px 25px;
+  padding:40px;
   border-radius:20px;
-  box-shadow:0 10px 40px rgba(255,105,180,0.25);
+  text-align:center;
 }
 
 h1{
   font-family:'Playfair Display', serif;
-  font-size:clamp(28px,7vw,48px);
   color:#e60073;
 }
 
 .names{
   font-family:'Great Vibes', cursive;
-  font-size:clamp(34px,8vw,52px);
+  font-size:50px;
   margin:15px 0;
   color:#e60073;
-  text-shadow:
-    0 0 5px #ff99cc,
-    0 0 10px #ff66a3,
-    0 0 20px #ff3385;
-  animation: glow 2s ease-in-out infinite alternate;
+  animation: glow 2s infinite alternate;
 }
 
 @keyframes glow{
-  from{
-    text-shadow:
-      0 0 5px #ff99cc,
-      0 0 10px #ff66a3,
-      0 0 20px #ff3385;
-  }
-  to{
-    text-shadow:
-      0 0 10px #ffb3d9,
-      0 0 20px #ff66a3,
-      0 0 30px #ff3385;
-  }
+  from{ text-shadow:0 0 5px #ff99cc;}
+  to{ text-shadow:0 0 20px #ff3385;}
 }
 
-.date{
-  letter-spacing:3px;
-  margin-bottom:20px;
-  font-size:14px;
-}
-
-/* COUNTDOWN */
 .countdown{
   display:grid;
   grid-template-columns:repeat(4,1fr);
   gap:10px;
-  margin-top:20px;
 }
 
 .box{
   background:white;
-  padding:15px 5px;
-  border-radius:12px;
-  font-size:14px;
-  box-shadow:0 4px 15px rgba(255,105,180,0.2);
+  padding:10px;
+  border-radius:10px;
 }
 
-.box span{
-  font-size:18px;
-  font-weight:500;
-  color:#e60073;
-}
-
-/* RSVP SECTION */
-.rsvp{
-  padding:60px 20px;
-}
-
-.rsvp h2{
-  text-align:center;
-  margin-bottom:30px;
-  font-family:'Playfair Display', serif;
-  color:#e60073;
-}
-
-form{
-  max-width:500px;
-  margin:auto;
-  display:flex;
-  flex-direction:column;
-  gap:15px;
-}
-
-input, textarea, select{
-  padding:14px;
-  border-radius:12px;
-  border:1px solid #ffb3d9;
-  font-size:14px;
-  background:white;
-  color:#333;
-}
-
-input:focus, textarea:focus, select:focus{
-  outline:none;
-  border:1px solid #ff66a3;
-  box-shadow:0 0 8px rgba(255,102,163,0.4);
-}
-
-button{
-  padding:14px;
-  border:none;
-  border-radius:30px;
-  background:linear-gradient(45deg,#ff66a3,#ff3385);
-  color:white;
-  font-size:15px;
-  font-weight:500;
-  cursor:pointer;
-  transition:0.3s;
-}
-
-button:hover{
-  transform:translateY(-2px);
-  box-shadow:0 6px 20px rgba(255,0,102,0.3);
-}
-
-button:active{
-  transform:scale(0.97);
-}
-
-/* FALLING EFFECT */
+/* FALL EFFECT */
 .effect{
   position:fixed;
   top:-10px;
-  pointer-events:none;
   animation:fall linear forwards;
 }
 
 @keyframes fall{
-  to{
-    transform:translateY(110vh) rotate(360deg);
-  }
-}
-
-@media(max-width:480px){
-  .content{
-    padding:30px 20px;
-  }
+  to{ transform:translateY(110vh) rotate(360deg);}
 }
 </style>
 </head>
+
 <body>
-  <div class="cover" id="cover">
+
+<div class="cover" id="cover">
   <h2>Thiệp cưới</h2>
   <p>Hưng ❤️ Quỳnh</p>
   <br>
@@ -265,31 +146,15 @@ button:active{
   <div class="content">
     <h1>We Are <br> Getting Married</h1>
     <div class="names">Hưng ❤️ Quỳnh</div>
-    <div class="date">20 • 12 • 2028</div>
+    <div>20 • 12 • 2028</div>
 
     <div class="countdown">
-      <div class="box"><span id="d">0</span><br>Ngày</div>
-      <div class="box"><span id="h">0</span><br>Giờ</div>
-      <div class="box"><span id="m">0</span><br>Phút</div>
-      <div class="box"><span id="s">0</span><br>Giây</div>
+      <div class="box"><span id="d"></span><br>Ngày</div>
+      <div class="box"><span id="h"></span><br>Giờ</div>
+      <div class="box"><span id="m"></span><br>Phút</div>
+      <div class="box"><span id="s"></span><br>Giây</div>
     </div>
   </div>
-</section>
-
-<section class="rsvp">
-  <h2>Xác nhận tham dự</h2>
-  <form id="rsvpForm">
-    <input type="text" name="name" placeholder="Tên của bạn" required>
-    <input type="tel" name="phone" placeholder="Số điện thoại" required>
-    <select name="guests">
-      <option value="1">1 người</option>
-      <option value="2">2 người</option>
-      <option value="3">3 người</option>
-      <option value="4">4 người</option>
-    </select>
-    <textarea name="message" rows="3" placeholder="Lời chúc gửi cô dâu chú rể"></textarea>
-    <button type="submit">Gửi xác nhận</button>
-  </form>
 </section>
 
 <script>
@@ -305,63 +170,74 @@ setInterval(()=>{
   document.getElementById("s").innerHTML = Math.floor((diff%(1000*60))/1000);
 },1000);
 
-/* FLOWER + HEART */
+/* HOA + TIM */
 function create(symbol){
   const el = document.createElement("div");
   el.classList.add("effect");
   el.innerHTML = symbol;
   el.style.left = Math.random()*100 + "vw";
   el.style.fontSize = (14+Math.random()*20)+"px";
-  el.style.animationDuration = (6+Math.random()*4)+"s";
+  el.style.animationDuration = (5+Math.random()*5)+"s";
   document.body.appendChild(el);
   setTimeout(()=>el.remove(),10000);
 }
-
 setInterval(()=>create("🌸"),800);
 setInterval(()=>create("❤️"),1200);
 
-/* GIỮ NGUYÊN LOGIC GỬI GOOGLE SHEET */
-document.getElementById("rsvpForm").addEventListener("submit", function(e){
-  e.preventDefault();
-
-  fetch("https://script.google.com/macros/s/AKfycbxukNX3NDVDkH1sqpkCUYH2QUdykyAPZTAi6sP3cdHaNgmg7Tym1n4rIkj2YsJsaSXeDg/exec",{
-    method:"POST",
-    body:JSON.stringify({
-      name:this.name.value,
-      phone:this.phone.value,
-      guests:this.guests.value,
-      message:this.message.value
-    })
-  });
-
-  alert("Đã gửi xác nhận ❤️");
-  this.reset();
-});
-  function openInvitation(){
-  document.getElementById("cover").classList.add("hide");
-  clearInterval(fireworkInterval); // dừng pháo hoa
-}
-  let fireworkInterval;
+/* FIREWORK XỊN */
+let fireworkInterval;
 
 function createFirework(){
-  const fw = document.createElement("div");
-  fw.classList.add("firework");
+  const container = document.getElementById("cover");
 
-  // vị trí random trên màn hình
-  fw.style.left = Math.random()*100 + "vw";
-  fw.style.top = Math.random()*100 + "vh";
+  // bay lên
+  const rocket = document.createElement("div");
+  rocket.style.position="absolute";
+  rocket.style.width="3px";
+  rocket.style.height="10px";
+  rocket.style.background="#fff";
+  rocket.style.left=Math.random()*100+"%";
+  rocket.style.bottom="0";
+  rocket.style.transition="1s linear";
 
-  // màu random
-  const colors = ["#ff66a3","#ff3385","#ff99cc","#ffccdd","#ffffff"];
-  fw.style.background = colors[Math.floor(Math.random()*colors.length)];
+  container.appendChild(rocket);
 
-  document.body.appendChild(fw);
+  setTimeout(()=>{
+    rocket.style.bottom="70%";
+  },50);
 
-  setTimeout(()=>fw.remove(),1000);
+  // nổ
+  setTimeout(()=>{
+    rocket.remove();
+
+    for(let i=0;i<20;i++){
+      const fw = document.createElement("div");
+      fw.classList.add("firework");
+
+      const size = 3 + Math.random()*5;
+      fw.style.width = size+"px";
+      fw.style.height = size+"px";
+
+      const colors = ["#ff66a3","#ff3385","#ff99cc","#ffffff"];
+      fw.style.background = colors[Math.floor(Math.random()*colors.length)];
+
+      fw.style.left = rocket.style.left;
+      fw.style.top = "30%";
+
+      container.appendChild(fw);
+
+      setTimeout(()=>fw.remove(),1000);
+    }
+  },1000);
 }
 
-// chạy pháo hoa khi chưa mở thiệp
-fireworkInterval = setInterval(createFirework, 300);
+fireworkInterval = setInterval(createFirework, 800);
+
+/* OPEN */
+function openInvitation(){
+  document.getElementById("cover").style.display="none";
+  clearInterval(fireworkInterval);
+}
 </script>
 
 </body>
