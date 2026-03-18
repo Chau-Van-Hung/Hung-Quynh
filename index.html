@@ -49,6 +49,26 @@ body::before{
   color:white;
   text-align:center;
 }
+  /* pháo hoa */
+  .firework{
+  position:fixed;
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  pointer-events:none;
+  animation: explode 1s ease-out forwards;
+}
+
+@keyframes explode{
+  from{
+    transform:scale(1);
+    opacity:1;
+  }
+  to{
+    transform:scale(8);
+    opacity:0;
+  }
+}
 
 .cover h2{
   font-family:'Playfair Display', serif;
@@ -320,7 +340,29 @@ document.getElementById("rsvpForm").addEventListener("submit", function(e){
 });
   function openInvitation(){
   document.getElementById("cover").classList.add("hide");
+  clearInterval(fireworkInterval); // dừng pháo hoa
 }
+  let fireworkInterval;
+
+function createFirework(){
+  const fw = document.createElement("div");
+  fw.classList.add("firework");
+
+  // vị trí random trên màn hình
+  fw.style.left = Math.random()*100 + "vw";
+  fw.style.top = Math.random()*100 + "vh";
+
+  // màu random
+  const colors = ["#ff66a3","#ff3385","#ff99cc","#ffccdd","#ffffff"];
+  fw.style.background = colors[Math.floor(Math.random()*colors.length)];
+
+  document.body.appendChild(fw);
+
+  setTimeout(()=>fw.remove(),1000);
+}
+
+// chạy pháo hoa khi chưa mở thiệp
+fireworkInterval = setInterval(createFirework, 300);
 </script>
 
 </body>
