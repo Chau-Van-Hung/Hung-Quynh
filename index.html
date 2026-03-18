@@ -14,8 +14,7 @@ body{
   font-family:'Poppins', sans-serif;
   background:url("anhcuoi.jpg") no-repeat center center fixed;
   background-size:cover;
-  color:#b30059;
-  overflow-x:hidden;
+  overflow:hidden;
 }
 
 body::before{
@@ -23,7 +22,7 @@ body::before{
   position:fixed;
   width:100%;
   height:100%;
-  background:rgba(255,255,255,0.6);
+  background:rgba(255,255,255,0.5);
   backdrop-filter:blur(5px);
   z-index:-1;
 }
@@ -40,10 +39,10 @@ body::before{
   flex-direction:column;
   z-index:9999;
   color:white;
-  text-align:center;
   overflow:hidden;
 }
 
+/* BUTTON */
 .open-btn{
   padding:14px 35px;
   border:none;
@@ -53,24 +52,14 @@ body::before{
   cursor:pointer;
 }
 
-/* FIREWORK */
+/* FIREWORK PARTICLE */
 .firework{
   position:absolute;
   border-radius:50%;
   pointer-events:none;
   z-index:10000;
-  animation: explode 1s ease-out forwards;
-}
-
-@keyframes explode{
-  from{
-    transform:scale(1);
-    opacity:1;
-  }
-  to{
-    transform:scale(8);
-    opacity:0;
-  }
+  box-shadow:0 0 10px currentColor, 0 0 20px currentColor;
+  opacity:1;
 }
 
 /* HERO */
@@ -82,53 +71,35 @@ body::before{
 }
 
 .content{
-  max-width:500px;
-  background:rgba(255,255,255,0.6);
-  backdrop-filter:blur(10px);
+  background:rgba(255,255,255,0.7);
   padding:40px;
   border-radius:20px;
   text-align:center;
 }
 
-h1{
-  font-family:'Playfair Display', serif;
-  color:#e60073;
-}
-
 .names{
   font-family:'Great Vibes', cursive;
   font-size:50px;
-  margin:15px 0;
   color:#e60073;
   animation: glow 2s infinite alternate;
 }
 
 @keyframes glow{
   from{ text-shadow:0 0 5px #ff99cc;}
-  to{ text-shadow:0 0 20px #ff3385;}
+  to{ text-shadow:0 0 25px #ff3385;}
 }
 
 .countdown{
   display:grid;
   grid-template-columns:repeat(4,1fr);
   gap:10px;
+  margin-top:20px;
 }
 
 .box{
   background:white;
   padding:10px;
   border-radius:10px;
-}
-
-/* FALL EFFECT */
-.effect{
-  position:fixed;
-  top:-10px;
-  animation:fall linear forwards;
-}
-
-@keyframes fall{
-  to{ transform:translateY(110vh) rotate(360deg);}
 }
 </style>
 </head>
@@ -170,68 +141,50 @@ setInterval(()=>{
   document.getElementById("s").innerHTML = Math.floor((diff%(1000*60))/1000);
 },1000);
 
-/* HOA + TIM */
-function create(symbol){
-  const el = document.createElement("div");
-  el.classList.add("effect");
-  el.innerHTML = symbol;
-  el.style.left = Math.random()*100 + "vw";
-  el.style.fontSize = (14+Math.random()*20)+"px";
-  el.style.animationDuration = (5+Math.random()*5)+"s";
-  document.body.appendChild(el);
-  setTimeout(()=>el.remove(),10000);
-}
-setInterval(()=>create("🌸"),800);
-setInterval(()=>create("❤️"),1200);
-
 /* FIREWORK XỊN */
 let fireworkInterval;
 
 function createFirework(){
   const container = document.getElementById("cover");
 
-  // bay lên
-  const rocket = document.createElement("div");
-  rocket.style.position="absolute";
-  rocket.style.width="3px";
-  rocket.style.height="10px";
-  rocket.style.background="#fff";
-  rocket.style.left=Math.random()*100+"%";
-  rocket.style.bottom="0";
-  rocket.style.transition="1s linear";
+  const x = Math.random() * window.innerWidth;
+  const y = Math.random() * window.innerHeight * 0.6;
 
-  container.appendChild(rocket);
+  const colors = ["#ff66a3","#ff3385","#ff99cc","#ffffff","#ffd1e8"];
 
-  setTimeout(()=>{
-    rocket.style.bottom="70%";
-  },50);
+  for(let i=0;i<50;i++){ // càng lớn càng đẹp
+    const p = document.createElement("div");
+    p.classList.add("firework");
 
-  // nổ
-  setTimeout(()=>{
-    rocket.remove();
+    const size = 3 + Math.random()*4;
+    p.style.width = size + "px";
+    p.style.height = size + "px";
 
-    for(let i=0;i<20;i++){
-      const fw = document.createElement("div");
-      fw.classList.add("firework");
+    p.style.background = colors[Math.floor(Math.random()*colors.length)];
 
-      const size = 3 + Math.random()*5;
-      fw.style.width = size+"px";
-      fw.style.height = size+"px";
+    p.style.left = x + "px";
+    p.style.top = y + "px";
 
-      const colors = ["#ff66a3","#ff3385","#ff99cc","#ffffff"];
-      fw.style.background = colors[Math.floor(Math.random()*colors.length)];
+    const angle = Math.random() * 2 * Math.PI;
+    const distance = Math.random() * 150 + 50;
 
-      fw.style.left = rocket.style.left;
-      fw.style.top = "30%";
+    const dx = Math.cos(angle) * distance;
+    const dy = Math.sin(angle) * distance;
 
-      container.appendChild(fw);
+    p.style.transition = "transform 1.2s ease-out, opacity 1.2s";
 
-      setTimeout(()=>fw.remove(),1000);
-    }
-  },1000);
+    container.appendChild(p);
+
+    setTimeout(()=>{
+      p.style.transform = `translate(${dx}px, ${dy}px)`;
+      p.style.opacity = 0;
+    },10);
+
+    setTimeout(()=>p.remove(),1200);
+  }
 }
 
-fireworkInterval = setInterval(createFirework, 800);
+fireworkInterval = setInterval(createFirework, 900);
 
 /* OPEN */
 function openInvitation(){
