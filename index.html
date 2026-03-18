@@ -14,7 +14,7 @@ body{
   font-family:'Poppins', sans-serif;
   background:url("anhcuoi.jpg") no-repeat center center fixed;
   background-size:cover;
-  overflow-x:hidden; /* FIX QUAN TRỌNG */
+  overflow:hidden;
 }
 
 body::before{
@@ -42,6 +42,7 @@ body::before{
   overflow:hidden;
 }
 
+/* BUTTON */
 .open-btn{
   padding:14px 35px;
   border:none;
@@ -78,7 +79,6 @@ body::before{
   to{ text-shadow:0 0 25px #ff3385;}
 }
 
-/* COUNTDOWN */
 .countdown{
   display:grid;
   grid-template-columns:repeat(4,1fr);
@@ -90,27 +90,6 @@ body::before{
   background:white;
   padding:10px;
   border-radius:10px;
-}
-
-/* HIỆU ỨNG BAY */
-.effect{
-  position:fixed;
-  pointer-events:none;
-  animation: float linear forwards;
-}
-
-/* BAY NHIỀU HƯỚNG */
-@keyframes float{
-  0%{
-    transform:translateY(0) translateX(0) rotate(0deg);
-    opacity:1;
-  }
-  100%{
-    transform:
-      translateY(-120vh)
-      translateX(calc(-120px + 240px * var(--rand)));
-    opacity:0;
-  }
 }
 </style>
 </head>
@@ -151,32 +130,6 @@ setInterval(()=>{
   document.getElementById("m").innerHTML = Math.floor((diff%(1000*60*60))/(1000*60));
   document.getElementById("s").innerHTML = Math.floor((diff%(1000*60))/1000);
 },1000);
-
-/* HIỆU ỨNG HOA + TIM + BONG BÓNG */
-function createEffect(){
-  const el = document.createElement("div");
-  el.classList.add("effect");
-
-  const items = ["🌸","🌺","💖","❤️","🎈"];
-  el.innerHTML = items[Math.floor(Math.random()*items.length)];
-
-  el.style.left = Math.random()*100 + "vw";
-  el.style.bottom = "-30px";
-
-  el.style.fontSize = (18 + Math.random()*25) + "px";
-
-  el.style.animationDuration = (6 + Math.random()*4) + "s";
-
-  // random hướng trái phải
-  el.style.setProperty('--rand', Math.random());
-
-  document.body.appendChild(el);
-
-  setTimeout(()=>el.remove(),10000);
-}
-
-/* TĂNG MẬT ĐỘ */
-setInterval(createEffect, 150);
 
 /* OPEN */
 function openInvitation(){
