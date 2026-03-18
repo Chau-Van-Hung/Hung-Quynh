@@ -14,7 +14,7 @@ body{
   font-family:'Poppins', sans-serif;
   background:url("anhcuoi.jpg") no-repeat center center fixed;
   background-size:cover;
-  overflow-x:hidden;
+  overflow-x:hidden; /* FIX QUAN TRỌNG */
 }
 
 body::before{
@@ -99,13 +99,16 @@ body::before{
   animation: float linear forwards;
 }
 
+/* BAY NHIỀU HƯỚNG */
 @keyframes float{
   0%{
     transform:translateY(0) translateX(0) rotate(0deg);
     opacity:1;
   }
   100%{
-    transform:translateY(-120vh) translateX(100px) rotate(360deg);
+    transform:
+      translateY(-120vh)
+      translateX(calc(-120px + 240px * var(--rand)));
     opacity:0;
   }
 }
@@ -158,18 +161,22 @@ function createEffect(){
   el.innerHTML = items[Math.floor(Math.random()*items.length)];
 
   el.style.left = Math.random()*100 + "vw";
-  el.style.bottom = "-20px";
+  el.style.bottom = "-30px";
 
-  el.style.fontSize = (16 + Math.random()*20) + "px";
+  el.style.fontSize = (18 + Math.random()*25) + "px";
 
-  el.style.animationDuration = (6 + Math.random()*5) + "s";
+  el.style.animationDuration = (6 + Math.random()*4) + "s";
+
+  // random hướng trái phải
+  el.style.setProperty('--rand', Math.random());
 
   document.body.appendChild(el);
 
   setTimeout(()=>el.remove(),10000);
 }
 
-setInterval(createEffect, 300);
+/* TĂNG MẬT ĐỘ */
+setInterval(createEffect, 150);
 
 /* OPEN */
 function openInvitation(){
