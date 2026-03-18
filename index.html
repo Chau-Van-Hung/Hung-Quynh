@@ -50,15 +50,14 @@ body::before{
   text-align:center;
 }
   /* pháo hoa */
-  .firework{
+  ..firework{
   position:fixed;
-  width:6px;
-  height:6px;
+  width:4px;
+  height:4px;
   border-radius:50%;
   pointer-events:none;
-  animation: explode 1s ease-out forwards;
+  z-index:10000; /* QUAN TRỌNG */
 }
-
 @keyframes explode{
   from{
     transform:scale(1);
